@@ -26,9 +26,9 @@ function response(res, status, data = null) {
     return true;
 }
 async function handleContactsRequest(req, res) {
-    let contactsRepository = new Repository("./bookmarks.json");
+    let contactsRepository = new Repository("./contacts.json");
     let contact = null;
-    if (req.url == "/api/bookmarks") {
+    if (req.url == "/api/contacts") {
         switch (req.method) {
             case "GET":
                 return response(res, 200, JSON.stringify(contactsRepository.getAll()));
@@ -50,7 +50,7 @@ async function handleContactsRequest(req, res) {
                     return response(res, 400);
         }
     } else {
-        if (req.url.includes("/api/bookmarks/")) {
+        if (req.url.includes("/api/contacts/")) {
             let id = parseInt(req.url.substring(req.url.lastIndexOf("/") + 1, req.url.length));
             switch (req.method) {
                 case "GET":
@@ -94,5 +94,5 @@ const server = createServer(async (req, res) => {
         if (!handleContactsRequest(req, res))
             response(res, 404);
 });
-const PORT = process.env.PORT || 6969;
+const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
